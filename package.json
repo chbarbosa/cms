@@ -1,0 +1,14 @@
+{
+  "name": "cms",
+  "version": "1.0.0",
+  "description": "CMS in Node.js",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "CH Barbosa",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
