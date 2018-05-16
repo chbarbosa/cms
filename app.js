@@ -9,7 +9,7 @@ app.engine('handlebars', exphds({defaultLayout: 'home'}));
 app.set('view engine', 'handlebars');
 
 const home = require('./routes/home/index');
-const admin = require('./routes/home/index');
+const admin = require('./routes/admin/index');
 
 app.use('/', home);
 app.use('/admin', admin);
