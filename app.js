@@ -3,6 +3,12 @@ const app = express();
 const path = require('path');
 const exphds = require('express-handlebars')
 
+const mongoose = require('mongoose');
+
+mongoose.connect('mongodb://localhost:27017/cms')
+    .then(db=>console.log('DB connected'))
+    .catch(err=>console.log(err));
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.engine('handlebars', exphds({defaultLayout: 'home'}));
