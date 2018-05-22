@@ -1,9 +1,9 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const exphds = require('express-handlebars')
-
+const exphds = require('express-handlebars');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 
 mongoose.connect('mongodb://localhost:27017/cms')
     .then(db=>console.log('DB connected'))
@@ -13,6 +13,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.engine('handlebars', exphds({defaultLayout: 'home'}));
 app.set('view engine', 'handlebars');
+
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
+
+// Routes
 
 const home = require('./routes/home/index');
 const admin = require('./routes/admin/index');
