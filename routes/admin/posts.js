@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const post = require('../../models/Post');
 
 router.all('/*',(req,res,next)=>{
     req.app.locals.layout = 'admin';
@@ -15,6 +16,20 @@ router.get('/create', (req, res)=>{
 });
 
 router.post('/create', (req, res)=>{
+
+    let allowComments = false;
+
+    if (req.body.allowComments) {
+        allowComments = true;
+    }
+
+    Post({
+        title: req.body.title,
+        status: req.body.status,
+        allowComments: allowComments,
+        body: req.body.body
+
+    });
     console.log(req.body);
 });
 
