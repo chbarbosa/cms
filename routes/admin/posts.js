@@ -36,6 +36,10 @@ router.post('/create', (req, res)=>{
     newPost.save().then(savedPost =>{
         res.redirect('/admin/posts');
     });
+
+    router.get('/edit/:id', (req, res)=>{
+        res.render('admin/posts/edit');
+    });
 });
 
 module.exports = router;
