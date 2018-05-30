@@ -45,4 +45,8 @@ router.get('/edit/:id', (req, res)=>{
     //Not found
 });
 
+router.put('/edit/:id', (req, res)=>{
+    res.send('It works');
+});
+
 module.exports = router;

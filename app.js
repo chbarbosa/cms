@@ -4,6 +4,7 @@ const path = require('path');
 const exphds = require('express-handlebars');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const methodOverride = require('method-override');
 
 mongoose.connect('mongodb://localhost:27017/cms')
     .then(db=>console.log('DB connected'))
@@ -18,6 +19,10 @@ app.set('view engine', 'handlebars');
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+
+//method override
+
+app.use(methodOverride('_method'));
 
 // Routes
 
