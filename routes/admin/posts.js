@@ -69,4 +69,15 @@ router.put('/edit/:id', (req, res)=>{
     //Not found
 });
 
+
+
+router.delete('/:id', (req, res)=>{
+    Post.remove({_id: req.params.id}).then(result => {
+        res.redirect('/admin/posts');
+    });
+    //if not found
+    //if not removed?
+});
+
+
 module.exports = router;
