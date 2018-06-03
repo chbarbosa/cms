@@ -5,6 +5,7 @@ const exphds = require('express-handlebars');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
+const upload = require('express-fileupload');
 
 mongoose.connect('mongodb://localhost:27017/cms')
     .then(db=>console.log('DB connected'))
@@ -16,6 +17,12 @@ const {select} = require('./helpers/handlebars-helpers');
 
 app.engine('handlebars', exphds({defaultLayout: 'home', helpers: {select: select}}));
 app.set('view engine', 'handlebars');
+
+//Upload middleware
+
+app.use(upload());
+
+//Body Parser
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
