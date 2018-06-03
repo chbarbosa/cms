@@ -19,23 +19,25 @@ router.get('/create', (req, res)=>{
 
 router.post('/create', (req, res)=>{
 
-    let allowComments = false;
+    console.log(req.files);
 
-    if (req.body.allowComments) {
-        allowComments = true;
-    }
+    // let allowComments = false;
 
-    const newPost = new Post({
-        title: req.body.title,
-        status: req.body.status,
-        allowComments: allowComments,
-        body: req.body.body
+    // if (req.body.allowComments) {
+    //     allowComments = true;
+    // }
 
-    });
+    // const newPost = new Post({
+    //     title: req.body.title,
+    //     status: req.body.status,
+    //     allowComments: allowComments,
+    //     body: req.body.body
 
-    newPost.save().then(savedPost =>{
-        res.redirect('/admin/posts');
-    });
+    // });
+
+    // newPost.save().then(savedPost =>{
+    //     res.redirect('/admin/posts');
+    // });
 });
 
 router.get('/edit/:id', (req, res)=>{
