@@ -19,6 +19,13 @@ router.get('/create', (req, res)=>{
 
 router.post('/create', (req, res)=>{
 
+    let file = req.files.file;
+    let filename = file.name;
+
+    file.mv('./public/uploads/'+filename, (err)=>{
+        if(err) throw err;
+    });
+
     console.log(req.files);
 
     // let allowComments = false;
