@@ -22,7 +22,7 @@ router.post('/create', (req, res)=>{
     let filename = 'bmw z4.png';
     if (!isEmpty(req.files)) {        
         let file = req.files.file;
-        filename = file.name;
+        filename = Date.now() + '-' + file.name;
     
         file.mv('./public/uploads/'+filename, (err)=>{
             if(err) throw err;
