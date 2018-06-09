@@ -19,33 +19,34 @@ router.get('/create', (req, res)=>{
 });
 
 router.post('/create', (req, res)=>{
+    let filename = 'bmw z4.png';
     if (!isEmpty(req.files)) {        
         let file = req.files.file;
-        let filename = file.name;
+        filename = file.name;
     
         file.mv('./public/uploads/'+filename, (err)=>{
             if(err) throw err;
         });
     }
 
+    let allowComments = false;
 
-    // let allowComments = false;
+    if (req.body.allowComments) {
+        allowComments = true;
+    }
 
-    // if (req.body.allowComments) {
-    //     allowComments = true;
-    // }
+    const newPost = new Post({
+        title: req.body.title,
+        status: req.body.status,
+        allowComments: allowComments,
+        body: req.body.body,
+        file: filename
 
-    // const newPost = new Post({
-    //     title: req.body.title,
-    //     status: req.body.status,
-    //     allowComments: allowComments,
-    //     body: req.body.body
+    });
 
-    // });
-
-    // newPost.save().then(savedPost =>{
-    //     res.redirect('/admin/posts');
-    // });
+    newPost.save().then(savedPost =>{
+        res.redirect('/admin/posts');
+    });
 });
 
 router.get('/edit/:id', (req, res)=>{

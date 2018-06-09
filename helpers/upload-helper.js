@@ -1,7 +1,7 @@
 module.exports = {
     isEmpty: function(object){
-        for (let key of object) {
-            if (object.hasOwmProperty(key)) {
+        for (let key in object) {
+            if (object.hasOwnProperty(key)) {
                 return false;
             }
             return true;
