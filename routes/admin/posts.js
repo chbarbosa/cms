@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const Post = require('../../models/Post');
-const { isEmpty } = require('../../helpers/upload-helper');
+const { isEmpty, uploadDir } = require('../../helpers/upload-helper');
+const fs = require('fs');
 
 router.all('/*',(req,res,next)=>{
     req.app.locals.layout = 'admin';
@@ -83,8 +84,19 @@ router.put('/edit/:id', (req, res)=>{
 
 
 router.delete('/:id', (req, res)=>{
-    Post.remove({_id: req.params.id}).then(result => {
-        res.redirect('/admin/posts');
+    Post.findOne({_id: req.params.id}).then(post => {
+
+        
+        fs.unlink(uploadDir + post.file, (err)=>{
+            //Is this right??
+            post.remove();
+            //req.flash('sucess_message', 'Post was deleted');
+            res.redirect('/admin/posts');
+
+        });
+
+
+
     });
     //if not found
     //if not removed?
