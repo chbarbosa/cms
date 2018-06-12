@@ -20,34 +20,54 @@ router.get('/create', (req, res)=>{
 });
 
 router.post('/create', (req, res)=>{
-    let filename = 'bmw z4.png';
-    if (!isEmpty(req.files)) {        
-        let file = req.files.file;
-        filename = Date.now() + '-' + file.name;
-    
-        file.mv('./public/uploads/'+filename, (err)=>{
-            if(err) throw err;
+
+    let errors = [];
+
+    if (!req.body.title) {
+        errors.push({message: 'please add a title'});
+    }
+
+    if (!req.body.body) {
+        errors.push({message: 'please add a description'});
+    }
+
+    if (errors.length > 0) {
+        res.render('admin/posts/create', {
+            errors: errors
         });
+        
+    } else {
+            let filename = 'bmw z4.png';
+            if (!isEmpty(req.files)) {        
+                let file = req.files.file;
+                filename = Date.now() + '-' + file.name;
+            
+                file.mv('./public/uploads/'+filename, (err)=>{
+                    if(err) throw err;
+                });
+            }
+        
+            let allowComments = false;
+        
+            if (req.body.allowComments) {
+                allowComments = true;
+            }
+        
+            const newPost = new Post({
+                title: req.body.title,
+                status: req.body.status,
+                allowComments: allowComments,
+                body: req.body.body,
+                file: filename
+        
+            });
+        
+            newPost.save().then(savedPost =>{
+                res.redirect('/admin/posts');
+            });
+
     }
 
-    let allowComments = false;
-
-    if (req.body.allowComments) {
-        allowComments = true;
-    }
-
-    const newPost = new Post({
-        title: req.body.title,
-        status: req.body.status,
-        allowComments: allowComments,
-        body: req.body.body,
-        file: filename
-
-    });
-
-    newPost.save().then(savedPost =>{
-        res.redirect('/admin/posts');
-    });
 });
 
 router.get('/edit/:id', (req, res)=>{
