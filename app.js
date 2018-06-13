@@ -6,6 +6,8 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 const upload = require('express-fileupload');
+const session = require('express-session');
+const flash = require('connect-flash');
 
 mongoose.connect('mongodb://localhost:27017/cms')
     .then(db=>console.log('DB connected'))
@@ -30,6 +32,14 @@ app.use(bodyParser.json());
 //method override
 
 app.use(methodOverride('_method'));
+
+app.use(session({
+    secret: 'chbarbosa2018',
+    resave: true,
+    saveUninitialized: true
+}));
+
+app.use(flash());
 
 // Routes
 
