@@ -41,6 +41,13 @@ app.use(session({
 
 app.use(flash());
 
+//Local Variables
+
+app.use((req,res,next)=>{
+    res.locals.success_message = req.flash('success_message');
+    next();
+});
+
 // Routes
 
 const home = require('./routes/home/index');

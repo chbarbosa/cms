@@ -63,6 +63,7 @@ router.post('/create', (req, res)=>{
             });
         
             newPost.save().then(savedPost =>{
+                req.flash('success_message', `Post ${savedPost.title} was created successfully`);
                 res.redirect('/admin/posts');
             });
 
