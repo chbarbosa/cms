@@ -83,7 +83,6 @@ router.get('/edit/:id', (req, res)=>{
 
 
 router.put('/edit/:id', (req, res)=>{
-    console.log(req.params.id);
 
     Post.findOne({_id: req.params.id})
 
@@ -136,7 +135,7 @@ router.delete('/:id', (req, res)=>{
         fs.unlink(uploadDir + post.file, (err)=>{
             //Is this right??
             post.remove();
-            //req.flash('sucess_message', 'Post was deleted');
+            req.flash('success_message', 'Post was deleted');
             res.redirect('/admin/posts');
 
         });
