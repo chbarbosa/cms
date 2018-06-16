@@ -78,28 +78,53 @@ router.get('/edit/:id', (req, res)=>{
     //Not found
 });
 
+// POST UPDATING
+
+
+
 router.put('/edit/:id', (req, res)=>{
-    Post.findOne({_id: req.params.id}).then(post=>{
+    console.log(req.params.id);
 
-        if(req.body.allowComments){
-            post.allowComments = true;
-        } else{
-            post.allowComments = false;
-        }
+    Post.findOne({_id: req.params.id})
 
-        //post.user = req.user.id;
-        post.title = req.body.title;
-        post.status = req.body.status;
-        //post.allowComments = allowComments;
-        post.body = req.body.body;
-        //post.category = req.body.category;
+        .then(post=>{
+            if(req.body.allowComments){
+                allowComments = true;
+            } else{
+                allowComments = false;
+            }
 
-        post.save().then(updatedPost=>{
-            res.redirect('/admin/posts');
-        });
-        //If not saved?
-    });
-    //Not found
+            //post.user = req.user.id;
+            post.title = req.body.title;
+            post.status = req.body.status;
+            post.allowComments = allowComments;
+            post.body = req.body.body;
+            //post.category = req.body.category;
+
+
+            if(!isEmpty(req.files)){
+
+                let file = req.files.file;
+                filename = Date.now() + '-' + file.name;
+                post.file = filename;
+
+                file.mv('./public/uploads/' + filename, (err)=>{
+
+                    if(err) throw err;
+
+                });
+
+            }
+
+            post.save().then(updatedPost=>{
+
+                req.flash('success_message', 'Post was successfully updated');
+
+                res.redirect('/admin/posts');
+            });
+
+        }).catch((err)=>{if(err) throw err});
+
 });
 
 
