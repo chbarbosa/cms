@@ -31,5 +31,13 @@ router.get('/register', (req, res)=>{
     res.render('home/register');
 
 });
+router.get('/post/:id', (req, res)=>{
+
+    Post.findOne({_id: req.param._id})
+    .then(post => {
+        res.render('home/post', {post: post});
+    });
+
+});
 
 module.exports = router;
