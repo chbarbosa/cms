@@ -33,7 +33,7 @@ router.get('/register', (req, res)=>{
 });
 router.get('/post/:id', (req, res)=>{
 
-    Post.findOne({_id: req.param._id})
+    Post.findOne({_id: req.params.id})
     .then(post => {
         res.render('home/post', {post: post});
     });
