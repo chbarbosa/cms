@@ -12,5 +12,15 @@ router.get('/', (req, res)=>{
     res.render('admin/categories/index');
 });
 
+router.post('/create', (req, res)=>{
+    const newCategory = new Category({
+        name: req.body.name
+    });
+    newCategory.save().then(savedCategory=>{
+        res.render('admin/categories/index');
+    });
+    //No error treatment
+});
+
 
 module.exports = router;
