@@ -18,15 +18,16 @@
                 <tr>
                     <th>ID</th>
                     <th>Name</th>
-                    <th>Date</th>
                 </tr>
             </thead>
             <tbdoy>
+                {{#each categories}}
                 <tr>
-                    <th>324365</th>
-                    <th>PHP</th>
-                    <th>Jan 1st 2055</th>
+                    <th>{{id}}</th>
+                    <th>{{name}}</th>
+                    <th><a href="/admin/categories/edit/{{id}}" class="btn btn-info">Edit</a></th>
                 </tr>
+                {{/each}}
             </tbdoy>
         </table>
     </div>
