@@ -30,5 +30,14 @@ router.get('/edit/:id', (req, res)=>{
     });
 });
 
+router.put('/edit/:id', (req, res)=>{
+    Category.findOne({_id:req.params.id}).then(category=>{
+        category.name = req.body.name;
+        category.save().then(categorySaved=>{
+            res.redirect('/admin/categories');
+        });
+    });
+});
+
 
 module.exports = router;
