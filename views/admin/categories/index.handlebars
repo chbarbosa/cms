@@ -23,9 +23,14 @@
             <tbdoy>
                 {{#each categories}}
                 <tr>
-                    <th>{{id}}</th>
-                    <th>{{name}}</th>
-                    <th><a href="/admin/categories/edit/{{id}}" class="btn btn-info">Edit</a></th>
+                    <td>{{id}}</td>
+                    <td>{{name}}</td>
+                    <td><a href="/admin/categories/edit/{{id}}" class="btn btn-info">Edit</a></td>
+                    <td>
+                        <form action="/admin/categories/{{id}}?_method=DELETE" method="POST">
+                        <button class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
                 </tr>
                 {{/each}}
             </tbdoy>

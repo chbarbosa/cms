@@ -38,6 +38,11 @@ router.put('/edit/:id', (req, res)=>{
         });
     });
 });
+router.delete('/:id', (req, res)=>{
+    Category.remove({_id:req.params.id}).then(result=>{
+        res.redirect('/admin/categories');
+    });
+});
 
 
 module.exports = router;
