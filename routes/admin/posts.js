@@ -11,7 +11,9 @@ router.all('/*',(req,res,next)=>{
 });
 
 router.get('/', (req, res)=>{
-    Post.find({}).then(posts=>{
+    Post.find({})
+        .populate('category')
+        .then(posts=>{
         res.render('admin/posts', {posts: posts});
     });
 });
@@ -60,6 +62,7 @@ router.post('/create', (req, res)=>{
                 title: req.body.title,
                 status: req.body.status,
                 allowComments: allowComments,
+                category: req.body.category,
                 body: req.body.body,
                 file: filename
         
@@ -76,7 +79,9 @@ router.post('/create', (req, res)=>{
 
 router.get('/edit/:id', (req, res)=>{
     Post.findOne({_id: req.params.id}).then(post=>{
-        res.render('admin/posts/edit', {post: post});
+        Category.find({}).then(categories => {
+            res.render('admin/posts/edit', {post: post, categories: categories});
+        });
     });
     //Not found
 });
@@ -101,7 +106,7 @@ router.put('/edit/:id', (req, res)=>{
             post.status = req.body.status;
             post.allowComments = allowComments;
             post.body = req.body.body;
-            //post.category = req.body.category;
+            post.category = req.body.category;
 
 
             if(!isEmpty(req.files)){
