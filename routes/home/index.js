@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Post = require('../../models/Post');
 const Category = require('../../models/Category');
+const User = require('../../models/User');
 
 router.all('/*',(req,res,next)=>{
     req.app.locals.layout = 'home';
@@ -32,6 +33,18 @@ router.get('/login', (req, res)=>{
 router.get('/register', (req, res)=>{
 
     res.render('home/register');
+
+});
+router.post('/register', (req, res)=>{
+
+    const newUser = new User({
+        firstName: req.body.firstname,
+        lastName: req.body.lastName,
+        email: req.body.email,
+        password: req.body.password
+    });
+
+    res.send('home/register');
 
 });
 router.get('/post/:id', (req, res)=>{
