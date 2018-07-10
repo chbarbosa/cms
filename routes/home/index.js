@@ -37,14 +37,49 @@ router.get('/register', (req, res)=>{
 });
 router.post('/register', (req, res)=>{
 
+    let errors = [];
+
     const newUser = new User({
-        firstName: req.body.firstname,
+        firstName: req.body.firstName,
         lastName: req.body.lastName,
         email: req.body.email,
         password: req.body.password
     });
 
-    res.send('home/register');
+    if (!req.body.firstName) {
+        errors.push({message: 'please add a first name'});
+    }
+
+    if (!req.body.lastName) {
+        errors.push({message: 'please add a last name'});
+    }
+
+    if (!req.body.email) {
+        errors.push({message: 'please add an email'});
+    }
+
+    if (!req.body.password) {
+        errors.push({message: 'please add a password'});
+    }
+
+    if (!req.body.passwordConfirm) {
+        errors.push({message: 'please add a password'});
+    }
+
+    if (req.body.password !== req.body.passwordConfirm) {
+        errors.push({message: "Password Fields don't match"});
+    }
+
+    if (errors.length > 0) {
+        res.render('home/register', {
+            errors: errors
+        });
+        
+    } else {
+
+        res.send('Data is good');
+    }
+
 
 });
 router.get('/post/:id', (req, res)=>{
