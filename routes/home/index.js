@@ -39,13 +39,6 @@ router.post('/register', (req, res)=>{
 
     let errors = [];
 
-    const newUser = new User({
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        email: req.body.email,
-        password: req.body.password
-    });
-
     if (!req.body.firstName) {
         errors.push({message: 'please add a first name'});
     }
@@ -77,7 +70,17 @@ router.post('/register', (req, res)=>{
         
     } else {
 
-        res.send('Data is good');
+        const newUser = new User({
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            email: req.body.email,
+            password: req.body.password
+        });
+
+        newUser.save().then(savedUser => {
+            res.send('User was saved');
+        });
+
     }
 
 
