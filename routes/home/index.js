@@ -66,10 +66,20 @@ router.post('/register', (req, res)=>{
 
     if (errors.length > 0) {
         res.render('home/register', {
-            errors: errors
+            errors: errors,
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            email: req.body.email
         });
         
     } else {
+
+        User.findOne({email: req.body.email}).then(user=>{
+            if (user) {
+                req.flash(error_message, 'That email exist please login');
+                res.redirect('/login');
+            }
+        });
 
         const newUser = new User({
             firstName: req.body.firstName,
