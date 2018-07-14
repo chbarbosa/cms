@@ -4,6 +4,8 @@ const Post = require('../../models/Post');
 const Category = require('../../models/Category');
 const User = require('../../models/User');
 const bcrypt = require('bcryptjs');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
 
 router.all('/*',(req,res,next)=>{
     req.app.locals.layout = 'home';
@@ -31,9 +33,18 @@ router.get('/login', (req, res)=>{
     res.render('home/login');
 
 });
-router.post('/login', (req, res)=>{
 
-    res.send('Login post works');
+//APP Login
+passport.use(new LocalStrategy({usernameField: 'email'},(email, password, done)=> {
+    console.log(password);
+}));
+
+router.post('/login', (req, res, next)=>{
+    passport.authenticate('local',{
+        successRedirect: '/admin',
+        failureRedirect: '/login',
+        failureFlash: true
+    })(req, res, next);
 
 });
 router.get('/register', (req, res)=>{
