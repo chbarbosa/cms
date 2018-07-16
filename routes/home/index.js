@@ -51,6 +51,16 @@ passport.use(new LocalStrategy({usernameField: 'email'},(email, password, done)=
     console.log(password);
 }));
 
+passport.serializeUser(function(user, done) {
+    done(null, user.id);
+  });
+  
+  passport.deserializeUser(function(id, done) {
+    User.findById(id, function(err, user) {
+      done(err, user);
+    });
+  });
+
 router.post('/login', (req, res, next)=>{
     passport.authenticate('local',{
         successRedirect: '/admin',

@@ -8,6 +8,7 @@ const methodOverride = require('method-override');
 const upload = require('express-fileupload');
 const session = require('express-session');
 const flash = require('connect-flash');
+const passport = require('passport');
 const {mongoDbUrl} = require('./config/database');
 
 mongoose.connect(mongoDbUrl)
@@ -41,6 +42,10 @@ app.use(session({
 }));
 
 app.use(flash());
+
+//PASSSPORT
+app.use(passport.initialize());
+app.use(passport.session());
 
 //Local Variables
 
