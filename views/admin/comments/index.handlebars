@@ -12,8 +12,8 @@
         {{#each comments}}
         <tr>
             <td>{{id}}</td>            
-            <td>{{user}}</td>
-            <td>{{date}}</td>
+            <td>{{user.firstName}}</td>
+            <td>{{formatDate date 'MMMM Do YYYY'}}</td>
         </tr>
         {{/each}}
     </tbody>
