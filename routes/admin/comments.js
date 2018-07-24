@@ -3,6 +3,15 @@ const router = express.Router();
 const Post = require('../../models/Post');
 const Comment = require('../../models/Comment');
 
+router.all('/*',(req,res,next)=>{
+    req.app.locals.layout = 'admin';
+    next();
+});
+
+router.get('/', (req, res)=>{
+    res.render('admin/comments');
+});
+
 router.post('/', (req, res)=>{
 
     Post.findOne({_id: req.body.id}).then(post=>{
