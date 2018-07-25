@@ -31,4 +31,10 @@ router.post('/', (req, res)=>{
 
 });
 
+router.delete('/:id', (req, res)=>{
+    Comment.findByIdAndRemove({_id: req.params.id}).then(daleted=>{
+        res.redirect('/admin/comments');
+    });
+});
+
 module.exports = router;
