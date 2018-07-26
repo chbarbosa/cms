@@ -138,14 +138,22 @@ router.put('/edit/:id', (req, res)=>{
 
 
 router.delete('/:id', (req, res)=>{
-    Post.findOne({_id: req.params.id}).then(post => {
+    Post.findOne({_id: req.params.id})
+    .populate('comments')
+    .then(post => {
 
         
         fs.unlink(uploadDir + post.file, (err)=>{
+            if (!post.comments.length < 1) {
+                post.comments.forEach(comment => {
+                    comment.remove();
+                });
+            }
             //Is this right??
-            post.remove();
-            req.flash('success_message', 'Post was deleted');
-            res.redirect('/admin/posts');
+            post.remove().then(postRemoved=>{
+                req.flash('success_message', 'Post was deleted');
+                res.redirect('/admin/posts');
+            });
 
         });
 
