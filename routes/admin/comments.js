@@ -32,8 +32,11 @@ router.post('/', (req, res)=>{
 });
 
 router.delete('/:id', (req, res)=>{
-    Comment.findByIdAndRemove({_id: req.params.id}).then(daleted=>{
-        res.redirect('/admin/comments');
+    Comment.findByIdAndRemove({_id: req.params.id}).then(deleted=>{
+        Post.findOneAndUpdate({comments: req.params.id}, {$pull: {comments: req.params.id}}, (err, data)=>{
+            if (err) console.log(err);
+            res.redirect('/admin/comments');
+        });
     });
 });
 
