@@ -29,6 +29,9 @@
           
           <hr>
 
+        {{#if user}}
+
+        {{#if post.allowComments}}
           <!-- Comments Form -->
           <div class="card my-4">
             <h5 class="card-header">Leave a Comment:</h5>
@@ -42,6 +45,16 @@
               </form>
             </div>
           </div>
+          {{else}}
+          <h2>Comment not allowed for this post</h2>
+          <br>
+          <hr>
+          {{/if}}
+          {{else}}
+          You need to login to comment <a href="/login">Login</a>
+          <br>
+          <hr>
+          {{/if}}
 
           <!-- Single Comment -->
           <div class="media mb-4">
