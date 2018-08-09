@@ -39,5 +39,13 @@
     <script src="/js/admin/bootstrap-switch.min.js"></script>
 
     <script>
-        $("name='approveComment'").bootstrapSwitch();
+        $("[name='approveComment']").bootstrapSwitch();
+
+        $(document).ready(()=>{
+
+            $("[name='approveComment']").on('switchChange.bootstrapSwitch', (e,data)=>{
+                console.log('it works');
+            });
+
+        });
     </script>
