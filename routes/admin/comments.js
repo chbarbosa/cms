@@ -40,4 +40,9 @@ router.delete('/:id', (req, res)=>{
     });
 });
 
+
+router.post('/approve-comment', (req, res)=>{
+    res.send('it works');
+});
+
 module.exports = router;

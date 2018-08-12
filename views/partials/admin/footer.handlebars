@@ -44,7 +44,17 @@
         $(document).ready(()=>{
 
             $("[name='approveComment']").on('switchChange.bootstrapSwitch', (e,data)=>{
-                console.log('it works');
+                
+                $.ajax({
+                    type: "POST",
+                    url: '/admin/comments/approve-comment',
+                    data: {},
+                    cache: false,
+                    success: function(data){
+
+                    }
+                });
+
             });
 
         });
