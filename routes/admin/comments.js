@@ -24,6 +24,7 @@ router.post('/', (req, res)=>{
         post.comments.push(newComment);
         post.save().then(savedPost=>{
             newComment.save().then(savedComment=>{
+                req.flash('success_message', 'Your comment must be approved');
                 res.redirect(`/post/{post.id}`);
             });
         });
