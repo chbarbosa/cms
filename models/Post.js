@@ -45,4 +45,6 @@ const PostSchema = new Schema({
     }]
 }, {usePushEach: true});
 
+PostSchema.plugin(URLSlugs('title', {field: 'slug'}));
+
 module.exports = mongoose.model('posts', PostSchema);
