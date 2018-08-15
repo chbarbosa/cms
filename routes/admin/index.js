@@ -27,7 +27,7 @@ router.post('/generate-fake-posts', (req, res)=>{
         post.status = 'public';
         post.allowComments = faker.random.boolean();
         post.body = faker.lorem.sentence();
-
+        post.slug = faker.name.title();
         post.save().then(postSaved=>console.log(postSaved)).catch(err => {throw err});
     }
     res.redirect('/admin/posts');

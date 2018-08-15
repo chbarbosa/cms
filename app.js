@@ -17,9 +17,9 @@ mongoose.connect(mongoDbUrl)
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-const {select, formatDate} = require('./helpers/handlebars-helpers');
+const {select, formatDate, paginate} = require('./helpers/handlebars-helpers');
 
-app.engine('handlebars', exphds({defaultLayout: 'home', helpers: {select: select, formatDate: formatDate}}));
+app.engine('handlebars', exphds({defaultLayout: 'home', helpers: {select: select, formatDate: formatDate, paginate: paginate}}));
 app.set('view engine', 'handlebars');
 
 //Upload middleware
