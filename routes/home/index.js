@@ -60,7 +60,6 @@ passport.use(new LocalStrategy({usernameField: 'email'},(email, password, done)=
             }
         });
     });
-    console.log(password);
 }));
 
 passport.serializeUser(function(user, done) {
